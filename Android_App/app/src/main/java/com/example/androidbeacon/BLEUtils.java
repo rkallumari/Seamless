@@ -69,6 +69,10 @@ public class BLEUtils {
         return beaconTransmitter;
     }
 
+    public String getUUID() {
+        return createNameSpace()+createInstance();
+    }
+
     private synchronized static String generateUUID(Context context) {
         if (uniqueID == null) {
             SharedPreferences sharedPrefs = context.getSharedPreferences(
@@ -87,7 +91,6 @@ public class BLEUtils {
     private String createNameSpace() {
         String uuid = generateUUID(applicationContext);
         String uuidStart = uuid.substring(0,uuid.lastIndexOf("-"));
-        String instance = uuid.substring(uuid.lastIndexOf("-")+1,uuid.length());
         String[] uuidStartArray = uuidStart.split("-");
         String namespace = "";
         for (String uuidS: uuidStartArray

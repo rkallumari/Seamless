@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconParser;
@@ -38,32 +39,15 @@ public class MainActivity extends AppCompatActivity {
         ble = new BLEUtils(getApplicationContext());
         ble.startTransmitting();
         setContentView(R.layout.activity_main);
+        TextView textView =  findViewById(R.id.deviceUUID);
+        textView.setText("Your UUID is "+ble.getUUID());
     }
 
-    /*@Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 3:
-                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    Log.d("MESSAGE", "User granted permission for running in background");
-                    startService(new Intent(this, RunBackground.class));
-                }
-                break;
-
-            default:
-                break;
-        }
-    }*/
-
     public void startTransmittingInBackground(View view) {
-        //view.findViewById(R.id.backgroundYes).setVisibility(View.INVISIBLE);
-        //view.findViewById(R.id.backgroundNo).setVisibility(View.VISIBLE);
         startService(new Intent(this, RunBackground.class));
     }
 
     public void stopTransmittingInBackground(View view) {
-        //view.findViewById(R.id.backgroundYes).setVisibility(View.VISIBLE);
-        //view.findViewById(R.id.backgroundNo).setVisibility(View.INVISIBLE);
         stopService(new Intent(this, RunBackground.class));
     }
 }
